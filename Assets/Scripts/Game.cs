@@ -77,7 +77,7 @@ public class Game : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                if (cells[i,j].cellType == Cell.CellType.Empty)
+                if (cells[i, j].cellType == Cell.CellType.Empty)
                 {
                     cells[i, j].isRevealed = true;
                 }
@@ -98,7 +98,7 @@ public class Game : MonoBehaviour
 
     private Cell GetCell(int x, int y)
     {
-        if (x >= 0 && x <= 16 && y >= 0 && y <= 16)
+        if (x >= 0 && x <= width && y >= 0 && y <= height)
         {
             return cells[x, y];
         }
@@ -136,9 +136,9 @@ public class Game : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                if (cells[i,j].cellType == Cell.CellType.Empty)
+                if (cells[i, j].cellType == Cell.CellType.Empty)
                 {
-                    if (cells[i+1,j].cellType == Cell.CellType.Mine)
+                    if (cells[i + 1, j].cellType == Cell.CellType.Mine)
                     {
                         mine++;
                     }
@@ -146,7 +146,7 @@ public class Game : MonoBehaviour
                     {
                         mine++;
                     }
-                    if (cells[i, j+1].cellType == Cell.CellType.Mine)
+                    if (cells[i, j + 1].cellType == Cell.CellType.Mine)
                     {
                         mine++;
                     }
@@ -170,11 +170,8 @@ public class Game : MonoBehaviour
                     {
                         mine++;
                     }
-
                 }
-
             }
         }
     }
-
 }

@@ -329,6 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 16
   height: 16
+  nbMine: 40
 --- !u!1 &1167684862
 GameObject:
   m_ObjectHideFlags: 0
