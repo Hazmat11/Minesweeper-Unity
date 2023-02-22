@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    [HideInInspector]
     public int width = 16;
+    [HideInInspector]
     public int height = 16;
+    [HideInInspector]
     public int nbMine = 40;
 
     private GameBoard gameBoard;
