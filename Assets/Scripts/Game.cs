@@ -27,6 +27,7 @@ public class Game : MonoBehaviour
     private void NewGame()
     {
         cells = new Cell[width, height];
+
         DrawCells();
         DrawMine();
         DrawNumber();
@@ -48,7 +49,7 @@ public class Game : MonoBehaviour
                 cells[x, y] = cell;
             }
         }
- 
+
     }
 
     private void Update()
@@ -147,19 +148,19 @@ public class Game : MonoBehaviour
                 {
                     continue;
                 }
-                //cell.number = CountMine();
-                cell.number = 0;
+                cell.number = CountMine(i, j);
+
                 if (cell.number > 0)
                 {
                     cell.cellType = Cell.CellType.Number;
                 }
-                
+
                 cells[i, j] = cell;
             }
         }
     }
 
-    public int CountMine()
+    public int CountMine(int cellXpos, int cellYpos)
     {
         int mine = 0;
 
@@ -167,45 +168,20 @@ public class Game : MonoBehaviour
         {
             for (int j = -1; j < 1; j++)
             {
-                if (cells[i, j].cellType == Cell.CellType.Empty)
+                if (i == 0 && j == 0)
                 {
-                    if (i == 0 && j == 0)
-                    {
-                        continue;
-                    }
-                    if (cells[i + 1, j].cellType == Cell.CellType.Mine)
-                    {
-                        mine++;
-                    }
-                    if (cells[i - 1, j].cellType == Cell.CellType.Mine)
-                    {
-                        mine++;
-                    }
-                    if (cells[i, j + 1].cellType == Cell.CellType.Mine)
+                    continue;
+                }
+
+                int x = cellXpos + i;
+                int y = cellYpos + j;
+
+               if (x >= 0 && x < width && y >= 0 && y < height)
+                {
+                    if (cells[x, y].cellType == Cell.CellType.Mine)
                     {
                         mine++;
                     }
-                    if (cells[i, j - 1].cellType == Cell.CellType.Mine)
-                    {
-                        mine++;
-                    }
-                    if (cells[i + 1, j + 1].cellType == Cell.CellType.Mine)
-                    {
-                        mine++;
-                    }
-                    if (cells[i + 1, j - 1].cellType == Cell.CellType.Mine)
-                    {
-                        mine++;
-                    }
-                    if (cells[i - 1, j - 1].cellType == Cell.CellType.Mine)
-                    {
-                        mine++;
-                    }
-                    if (cells[i - 1, j + 1].cellType == Cell.CellType.Mine)
-                    {
-                        mine++;
-                    }
-                
                 }
             }
         }
