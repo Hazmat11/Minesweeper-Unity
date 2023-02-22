@@ -159,12 +159,17 @@ public class Game : MonoBehaviour
     public int CountMine()
     {
         int mine = 0;
-        for (int i = -1; i < width; i++)
+
+        for (int i = -1; i < 1; i++)
         {
-            for (int j = -1; j < height; j++)
+            for (int j = -1; j < 1; j++)
             {
                 if (cells[i, j].cellType == Cell.CellType.Empty)
                 {
+                    if (i == 0 && j == 0)
+                    {
+                        continue;
+                    }
                     if (cells[i + 1, j].cellType == Cell.CellType.Mine)
                     {
                         mine++;
