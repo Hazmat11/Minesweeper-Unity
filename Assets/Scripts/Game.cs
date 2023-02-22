@@ -25,6 +25,8 @@ public class Game : MonoBehaviour
     {
         cells = new Cell[width, height];
         DrawCells();
+        DrawMine();
+        DrawNumber();
 
         Camera.main.transform.position = new Vector3(width / 2f, height / 2f, -10f);
         gameBoard.DrawBoard(cells);
@@ -43,7 +45,7 @@ public class Game : MonoBehaviour
                 cells[x, y] = cell;
             }
         }
-        DrawMine();
+ 
     }
 
     private void Update()
@@ -67,8 +69,10 @@ public class Game : MonoBehaviour
         {
             cell.isRevealed = true;
             cells[Cellpos.x, Cellpos.y] = cell;
+
             EmptyReveal();
             gameBoard.DrawBoard(cells);
+
         }
     }
     private void EmptyReveal()
@@ -77,7 +81,7 @@ public class Game : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                if (cells[i,j].cellType == Cell.CellType.Empty)
+                if (cells[i, j].cellType == Cell.CellType.Empty)
                 {
                     cells[i, j].isRevealed = true;
                 }
@@ -129,16 +133,39 @@ public class Game : MonoBehaviour
         }
     }
 
-    public void DrawNumber()
+    private void DrawNumber()
     {
-        int mine = 0;
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                if (cells[i,j].cellType == Cell.CellType.Empty)
+                Cell cell = cells[i, j];
+                if (cell.cellType == Cell.CellType.Mine)
                 {
-                    if (cells[i+1,j].cellType == Cell.CellType.Mine)
+                    continue;
+                }
+                //cell.number = CountMine();
+                cell.number = 0;
+                if (cell.number > 0)
+                {
+                    cell.cellType = Cell.CellType.Number;
+                }
+                
+                cells[i, j] = cell;
+            }
+        }
+    }
+
+    public int CountMine()
+    {
+        int mine = 0;
+        for (int i = -1; i < width; i++)
+        {
+            for (int j = -1; j < height; j++)
+            {
+                if (cells[i, j].cellType == Cell.CellType.Empty)
+                {
+                    if (cells[i + 1, j].cellType == Cell.CellType.Mine)
                     {
                         mine++;
                     }
@@ -146,7 +173,7 @@ public class Game : MonoBehaviour
                     {
                         mine++;
                     }
-                    if (cells[i, j+1].cellType == Cell.CellType.Mine)
+                    if (cells[i, j + 1].cellType == Cell.CellType.Mine)
                     {
                         mine++;
                     }
@@ -170,11 +197,14 @@ public class Game : MonoBehaviour
                     {
                         mine++;
                     }
-
+                
                 }
 
             }
         }
+        return mine;
     }
+
+
 
 }
