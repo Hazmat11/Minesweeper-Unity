@@ -102,7 +102,7 @@ public class Game : MonoBehaviour
 
     private Cell GetCell(int x, int y)
     {
-        if (x >= 0 && x <= 16 && y >= 0 && y <= 16)
+        if (x >= 0 && x <= width && y >= 0 && y <= height)
         {
             return cells[x, y];
         }
@@ -199,7 +199,6 @@ public class Game : MonoBehaviour
                     }
                 
                 }
-
             }
         }
         return mine;
