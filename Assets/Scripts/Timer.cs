@@ -9,11 +9,9 @@ public class Timer : MonoBehaviour
     public float timeValue = 0;
     public float Timefixed;
     public TMP_Text timerText;
-    public TMP_Text bombnbText;
 
     private void Start()
     {
-        BombCount();
     }
 
     //Update is called once per frame
@@ -43,11 +41,5 @@ public class Timer : MonoBehaviour
         float milliseconds = timeToDisplay % 1 * 1000;
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-    }
-
-    void BombCount()
-    {
-        Game game = new Game();
-        bombnbText.text = game.nbMine.ToString();
     }
 }

@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    [HideInInspector]
-    public int width = 16;
-    [HideInInspector]
-
-
-    public int height = 16;
-    [HideInInspector]
+    private int width;
+    private int height;
     public int nbMine = 40;
 
     private GameBoard gameBoard;
@@ -19,10 +14,14 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         gameBoard = GetComponentInChildren<GameBoard>();
+
     }
 
-    private void Start()
+    void Start()
     {
+/*        width = level.width;
+        height = level.height;
+        Debug.Log(level.width);*/
         NewGame();
     }
 
