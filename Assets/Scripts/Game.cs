@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
     public int nbMine = 40;
 
     private GameBoard gameBoard;
+    private GameObject level;
     private Cell[,] cells;
 
     private void Awake()
@@ -19,9 +20,10 @@ public class Game : MonoBehaviour
 
     void Start()
     {
-/*        width = level.width;
-        height = level.height;
-        Debug.Log(level.width);*/
+        level = GameObject.Find("GameManager");
+        width = level.GetComponent<DifficultyLevel>().width;
+        height = level.GetComponent<DifficultyLevel>().height;
+        Debug.Log(width);
         NewGame();
     }
 
