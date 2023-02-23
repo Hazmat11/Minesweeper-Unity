@@ -7,11 +7,12 @@ public class Game : MonoBehaviour
 {
     public bool isGameOver = false;
 
-    public int width = 16;
-    public int height = 16;
+    private int width;
+    private int height;
     public int nbMine = 40;
 
     private GameBoard gameBoard;
+    private GameObject level;
     private Cell[,] cells;
 
     public GameObject gameOver;
@@ -19,10 +20,15 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         gameBoard = GetComponentInChildren<GameBoard>();
+
     }
 
-    private void Start()
+    void Start()
     {
+        level = GameObject.Find("GameManager");
+        width = level.GetComponent<DifficultyLevel>().width;
+        height = level.GetComponent<DifficultyLevel>().height;
+        Debug.Log(width);
         NewGame();
     }
 
