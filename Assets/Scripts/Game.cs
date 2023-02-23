@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public bool isGameOver = false;
+
     private int width;
     private int height;
     public int nbMine = 40;
