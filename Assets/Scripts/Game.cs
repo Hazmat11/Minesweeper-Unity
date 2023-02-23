@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public bool isGameOver = false;
+
     public int width = 16;
     public int height = 16;
     public int nbMine = 40;
@@ -54,13 +56,17 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!isGameOver)
         {
-            Reveal();
-        }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            Flaged();
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Reveal();
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                Flaged();
+            }
         }
     }
 
@@ -205,5 +211,6 @@ public class Game : MonoBehaviour
     private void EndingGame()
     {
         gameOver.SetActive(true);
+        isGameOver = true;
     }
 }
