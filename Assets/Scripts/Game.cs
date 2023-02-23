@@ -6,9 +6,7 @@ public class Game : MonoBehaviour
 {
     [HideInInspector]
     public int width = 16;
-    [HideInInspector]
     public int height = 16;
-    [HideInInspector]
     public int nbMine = 40;
 
     private GameBoard gameBoard;
@@ -164,9 +162,9 @@ public class Game : MonoBehaviour
     {
         int mine = 0;
 
-        for (int i = -1; i < 1; i++)
+        for (int i = -1; i <= 1; i++)
         {
-            for (int j = -1; j < 1; j++)
+            for (int j = -1; j <= 1; j++)
             {
                 if (i == 0 && j == 0)
                 {
