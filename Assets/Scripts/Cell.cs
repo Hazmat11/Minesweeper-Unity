@@ -4,6 +4,7 @@ public struct Cell
 {
     public enum CellType
     {
+        Invalid,
         Empty,
         Mine,
         Number,
