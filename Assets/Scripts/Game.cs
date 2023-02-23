@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -10,6 +11,8 @@ public class Game : MonoBehaviour
 
     private GameBoard gameBoard;
     private Cell[,] cells;
+
+    public GameObject gameOver;
 
     private void Awake()
     {
@@ -67,6 +70,11 @@ public class Game : MonoBehaviour
         Vector3Int Cellpos = gameBoard.tilemap.WorldToCell(worldPosition);
         Cell cell = GetCell(Cellpos.x, Cellpos.y);
         if (cell.cellType == Cell.CellType.Invalid || cell.isFlagged || cell.isRevealed) return;
+
+        if (cell.cellType == Cell.CellType.Mine)
+        {
+            EndingGame();
+        }
 
         if (cell.cellType == Cell.CellType.Empty)
         {
@@ -192,5 +200,10 @@ public class Game : MonoBehaviour
             }
         }
         return mine;
+    }
+
+    private void EndingGame()
+    {
+        gameOver.SetActive(true);
     }
 }
