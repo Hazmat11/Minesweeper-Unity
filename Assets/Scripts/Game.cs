@@ -74,7 +74,7 @@ public class Game : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Reveal();
-                
+
             }
             else if (Input.GetMouseButtonDown(1))
             {
@@ -248,8 +248,12 @@ public class Game : MonoBehaviour
 
     private void PrintWinningGameScene(bool isGameVictory)
     {
-        Time.timeScale = 0;
-        Debug.Log("Victoire");
+        if (isGameVictory)
+        {
+
+            Time.timeScale = 0;
+            Debug.Log(isGameVictory);
+        }
     }
 
     private bool CheckVictory()
@@ -264,7 +268,7 @@ public class Game : MonoBehaviour
                     numberCaseRevealed++;
                 }
             }
-            
+
         }
 
         if (numberCaseRevealed == height * width - nbMine)
