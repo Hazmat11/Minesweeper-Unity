@@ -636,6 +636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 9
   height: 9
+  nbMine: 0
 --- !u!1 &421153886
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,6 +942,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 16
   height: 16
+  nbMine: 0
 --- !u!1 &799675094
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,6 +1908,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 30
   height: 16
+  nbMine: 0
 --- !u!1 &1511261881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2856,6 +2859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 16
   height: 16
+  nbMine: 0
 --- !u!1 &2079186384
 GameObject:
   m_ObjectHideFlags: 0
