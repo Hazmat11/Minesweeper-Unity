@@ -578,7 +578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 976718177}
   - component: {fileID: 976718174}
-  - component: {fileID: 976718178}
+  - component: {fileID: 976718176}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -611,8 +611,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameOver: 0
-  nbMine: 40
+  isGameVictory: 0
+  nbMine: 0
   gameOver: {fileID: 979585452}
+  gameVictory: {fileID: 0}
 --- !u!4 &976718177
 Transform:
   m_ObjectHideFlags: 0
