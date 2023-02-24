@@ -22,15 +22,14 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         gameBoard = GetComponentInChildren<GameBoard>();
-
+        level = GameObject.Find("GameManager");
+        width = level.GetComponent<DifficultyLevel>().width;
+        height = level.GetComponent<DifficultyLevel>().height;
+        nbMine = level.GetComponent<DifficultyLevel>().nbMine;
     }
 
     void Start()
     {
-        level = GameObject.Find("GameManager");
-        width = level.GetComponent<DifficultyLevel>().width;
-        height = level.GetComponent<DifficultyLevel>().height;
-        Debug.Log(width);
         NewGame();
     }
 
