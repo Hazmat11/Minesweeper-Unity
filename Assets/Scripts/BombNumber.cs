@@ -15,7 +15,6 @@ public class BombNumber : MonoBehaviour
 
     void BombCount()
     {
-        Game game = gameObject.AddComponent(typeof(Game)) as Game;
-        bombnbText.text = game.nbMine.ToString();
+        bombnbText.text = GameObject.Find("GameManager").GetComponent<DifficultyLevel>().nbMine.ToString(); ;
     }
 }
