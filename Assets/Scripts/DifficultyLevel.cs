@@ -32,10 +32,4 @@ public class DifficultyLevel : MonoBehaviour
         level.GetComponent<DifficultyLevel>().height = 22;
         level.GetComponent<DifficultyLevel>().nbMine = 99;
     }
-
-    void Update()
-    {
-        Debug.Log(width);
-        Debug.Log(height);
-    }
 }

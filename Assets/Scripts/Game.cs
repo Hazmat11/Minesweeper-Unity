@@ -10,7 +10,7 @@ public class Game : MonoBehaviour
 
     private int width;
     private int height;
-    private int nbMine;
+    public int nbMine;
 
     private GameBoard gameBoard;
     private GameObject level;
@@ -247,6 +247,7 @@ public class Game : MonoBehaviour
 
     private void PrintWinningGameScene()
     {
+        Time.timeScale = 0;
         Debug.Log("Victoire");
     }
 
