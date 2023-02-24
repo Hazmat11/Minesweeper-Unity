@@ -29,6 +29,12 @@ public class Game : MonoBehaviour
     void Start()
     {
         NewGame();
+        Camera.main.transform.position = new Vector3(width / 2f, height / 2f, -10f);
+
+        if (width == 22)
+        {
+            Camera.main.orthographicSize = 11;
+        }
     }
 
     private void NewGame()
@@ -39,7 +45,6 @@ public class Game : MonoBehaviour
         DrawMine();
         DrawNumber();
 
-        Camera.main.transform.position = new Vector3(width / 2f, height / 2f, -10f);
         gameBoard.DrawBoard(cells);
     }
 
@@ -217,5 +222,6 @@ public class Game : MonoBehaviour
     {
         gameOver.SetActive(true);
         isGameOver = true;
+        Time.timeScale = 0;
     }
 }
