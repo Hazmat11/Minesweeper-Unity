@@ -74,13 +74,14 @@ public class Game : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Reveal();
-                isGameVictory = CheckVictory();
+                
             }
             else if (Input.GetMouseButtonDown(1))
             {
                 Flaged();
             }
-            PrintWinningGameScene();
+            isGameVictory = CheckVictory();
+            PrintWinningGameScene(isGameVictory);
         }
     }
 
@@ -145,7 +146,7 @@ public class Game : MonoBehaviour
 
     public void DrawMine()
     {
-        for (int i = 0; i <= nbMine; i++)
+        for (int i = 1; i <= nbMine; i++)
         {
             int x = Random.Range(0, width);
             int y = Random.Range(0, height);
@@ -245,7 +246,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    private void PrintWinningGameScene()
+    private void PrintWinningGameScene(bool isGameVictory)
     {
         Time.timeScale = 0;
         Debug.Log("Victoire");
@@ -263,12 +264,19 @@ public class Game : MonoBehaviour
                     numberCaseRevealed++;
                 }
             }
+            
         }
 
-        if (numberCaseRevealed == height * width - nbMine) 
+        if (numberCaseRevealed == height * width - nbMine)
         {
+            Debug.Log(numberCaseRevealed);
             return true;
         }
-        else return false;
+        else
+        {
+            Debug.Log(numberCaseRevealed);
+            return false;
+        }
+
     }
 }
