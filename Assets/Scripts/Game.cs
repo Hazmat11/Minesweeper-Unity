@@ -6,16 +6,18 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     public bool isGameOver = false;
+    public bool isGameVictory = false;
 
     private int width;
     private int height;
-    public int nbMine = 40;
+    private int nbMine;
 
     private GameBoard gameBoard;
     private GameObject level;
     private Cell[,] cells;
 
     public GameObject gameOver;
+    public GameObject gameVictory;
 
     private void Awake()
     {
@@ -72,11 +74,13 @@ public class Game : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Reveal();
+                isGameVictory = CheckVictory();
             }
             else if (Input.GetMouseButtonDown(1))
             {
                 Flaged();
             }
+            PrintWinningGameScene();
         }
     }
 
@@ -89,7 +93,7 @@ public class Game : MonoBehaviour
 
         if (cell.cellType == Cell.CellType.Mine)
         {
-            EndingGame();
+            EndingGame(cell);
         }
 
         if (cell.cellType == Cell.CellType.Empty)
@@ -100,7 +104,6 @@ public class Game : MonoBehaviour
         cell.isRevealed = true;
         cells[Cellpos.x, Cellpos.y] = cell;
         gameBoard.DrawBoard(cells);
-
     }
     private void EmptyReveal(Cell cell)
     {
@@ -159,7 +162,6 @@ public class Game : MonoBehaviour
             {
                 i--;
             }
-
         }
     }
 
@@ -218,10 +220,54 @@ public class Game : MonoBehaviour
         return mine;
     }
 
-    private void EndingGame()
+    private void EndingGame(Cell cell)
     {
         gameOver.SetActive(true);
         isGameOver = true;
         Time.timeScale = 0;
+
+        cell.isRevealed = true;
+        cell.isExploded = true;
+        cells[cell.position.x, cell.position.y] = cell;
+
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                cell = cells[i, j];
+
+                if (cell.cellType == Cell.CellType.Mine)
+                {
+                    cell.isRevealed = true;
+                    cells[i, j] = cell;
+                }
+            }
+        }
+    }
+
+    private void PrintWinningGameScene()
+    {
+        Debug.Log("Victoire");
+    }
+
+    private bool CheckVictory()
+    {
+        int numberCaseRevealed = 0;
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                if (cells[i, j].isRevealed == true)
+                {
+                    numberCaseRevealed++;
+                }
+            }
+        }
+
+        if (numberCaseRevealed == height * width - nbMine) 
+        {
+            return true;
+        }
+        else return false;
     }
 }

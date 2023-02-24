@@ -521,8 +521,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameOver: 0
-  nbMine: 40
+  isGameVictory: 0
+  nbMine: 0
   gameOver: {fileID: 979585452}
+  gameVictory: {fileID: 0}
 --- !u!4 &976718177
 Transform:
   m_ObjectHideFlags: 0
