@@ -18,6 +18,7 @@ public class Game : MonoBehaviour
 
     public GameObject gameOver;
     public GameObject gameVictory;
+    public GameObject retryButton;
 
     private void Awake()
     {
@@ -42,7 +43,8 @@ public class Game : MonoBehaviour
     private void NewGame()
     {
         cells = new Cell[width, height];
-
+        
+        Time.timeScale = 1;
         DrawCells();
         DrawMine();
         DrawNumber();
@@ -226,6 +228,7 @@ public class Game : MonoBehaviour
         gameOver.SetActive(true);
         isGameOver = true;
         Time.timeScale = 0;
+        retryButton.SetActive(true);
 
         cell.isRevealed = true;
         cell.isExploded = true;
@@ -250,9 +253,10 @@ public class Game : MonoBehaviour
     {
         if (isGameVictory)
         {
-
             Time.timeScale = 0;
             Debug.Log(isGameVictory);
+            gameVictory.SetActive(true);
+            retryButton.SetActive(true);
         }
     }
 
