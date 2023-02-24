@@ -28,8 +28,8 @@ public class DifficultyLevel : MonoBehaviour
     }
     public void Hard()
     {
-        level.GetComponent<DifficultyLevel>().width = 16;
-        level.GetComponent<DifficultyLevel>().height = 30;
+        level.GetComponent<DifficultyLevel>().width = 22;
+        level.GetComponent<DifficultyLevel>().height = 22;
         level.GetComponent<DifficultyLevel>().nbMine = 99;
     }
 
