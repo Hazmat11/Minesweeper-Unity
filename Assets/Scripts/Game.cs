@@ -289,7 +289,6 @@ public class Game : MonoBehaviour
         if (isGameVictory)
         {
             Time.timeScale = 0;
-            Debug.Log(isGameVictory);
             gameVictory.SetActive(true);
             confetti.SetActive(true);
             retryButton.SetActive(true);
