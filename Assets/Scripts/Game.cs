@@ -21,6 +21,8 @@ public class Game : MonoBehaviour
     public GameObject gameOver;
     public GameObject gameVictory;
     public GameObject retryButton;
+    public GameObject explosion;
+    public GameObject confetti;
 
     private void Awake()
     {
@@ -122,7 +124,8 @@ public class Game : MonoBehaviour
 
         if (cell.cellType == Cell.CellType.Mine)
         {
-            cell.isExploded= true;
+            cell.isExploded = true;
+            
             EndingGame(cell);
         }
 
@@ -280,6 +283,7 @@ public class Game : MonoBehaviour
                 }
             }
         }
+        explosion.SetActive(true);
     }
 
     private void PrintWinningGameScene(bool isGameVictory)
@@ -288,6 +292,7 @@ public class Game : MonoBehaviour
         {
             Time.timeScale = 0;
             gameVictory.SetActive(true);
+            confetti.SetActive(true);
             retryButton.SetActive(true);
 
             StreamReader sr = new StreamReader("Assets/Sprites/score.txt");
