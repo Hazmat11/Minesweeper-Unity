@@ -20,6 +20,7 @@ public class Game : MonoBehaviour
 
     public GameObject gameOver;
     public GameObject gameVictory;
+    public GameObject PlaceHolder;
     public GameObject retryButton;
     public GameObject explosion;
     public GameObject confetti;
@@ -296,7 +297,7 @@ public class Game : MonoBehaviour
             retryButton.SetActive(true);
 
             StreamReader sr = new StreamReader("Assets/Sprites/score.txt");
-            string text = sr.ReadToEnd();
+            string text = sr.ReadLine();
             sr.Close();
 
             Debug.Log(text);
@@ -305,6 +306,7 @@ public class Game : MonoBehaviour
 
             if (floatValue > GameObject.Find("Timer").GetComponent<Timer>().Timefixed)
             {
+                PlaceHolder.SetActive(true);
                 StreamWriter sw = new StreamWriter("Assets/Sprites/score.txt");
                 sw.WriteLine(GameObject.Find("Timer").GetComponent<Timer>().Timefixed);
                 sw.Close();
