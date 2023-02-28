@@ -18,6 +18,7 @@ public class Game : MonoBehaviour
 
     public GameObject gameOver;
     public GameObject gameVictory;
+    public GameObject retryButton;
 
     private void Awake()
     {
@@ -43,6 +44,7 @@ public class Game : MonoBehaviour
     {
         cells = new Cell[width, height];
 
+        Time.timeScale = 1;
         DrawCells();
         DrawMine();
         DrawNumber();
@@ -90,10 +92,35 @@ public class Game : MonoBehaviour
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int Cellpos = gameBoard.tilemap.WorldToCell(worldPosition);
         Cell cell = GetCell(Cellpos.x, Cellpos.y);
-        if (cell.cellType == Cell.CellType.Invalid || cell.isFlagged || cell.isRevealed) return;
+        if (cell.cellType == Cell.CellType.Invalid || cell.isFlagged) return;
+
+        if (cell.isRevealed && cell.cellType == Cell.CellType.Number)
+        {
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    if (!isInGrid(Cellpos.x + i, Cellpos.y + j)) continue;
+
+                    if (cells[Cellpos.x + i, Cellpos.y + j].isFlagged)
+                    {
+                        continue;
+                    }
+
+                    if (cells[Cellpos.x + i, Cellpos.y + j].cellType == Cell.CellType.Mine)
+                    {
+                        cells[Cellpos.x + i, Cellpos.y + j].isRevealed = true;
+                        EndingGame(cell);
+                    }
+
+                    cells[Cellpos.x + i, Cellpos.y + j].isRevealed = true;
+                }
+            }
+        }
 
         if (cell.cellType == Cell.CellType.Mine)
         {
+            cell.isExploded= true;
             EndingGame(cell);
         }
 
@@ -106,6 +133,8 @@ public class Game : MonoBehaviour
         cells[Cellpos.x, Cellpos.y] = cell;
         gameBoard.DrawBoard(cells);
     }
+
+    private bool isInGrid(int x, int y) => x >= 0 && y >= 0 && x < width && y < height;
     private void EmptyReveal(Cell cell)
     {
         if (cell.cellType == Cell.CellType.Invalid || cell.isRevealed) return;
@@ -120,6 +149,11 @@ public class Game : MonoBehaviour
             EmptyReveal(GetCell(cell.position.x + 1, cell.position.y));
             EmptyReveal(GetCell(cell.position.x, cell.position.y - 1));
             EmptyReveal(GetCell(cell.position.x, cell.position.y + 1));
+
+            EmptyReveal(GetCell(cell.position.x + 1, cell.position.y + 1));
+            EmptyReveal(GetCell(cell.position.x - 1, cell.position.y - 1));
+            EmptyReveal(GetCell(cell.position.x + 1, cell.position.y - 1));
+            EmptyReveal(GetCell(cell.position.x - 1, cell.position.y + 1));
         }
     }
     private void Flaged()
@@ -226,9 +260,9 @@ public class Game : MonoBehaviour
         gameOver.SetActive(true);
         isGameOver = true;
         Time.timeScale = 0;
+        retryButton.SetActive(true);
 
         cell.isRevealed = true;
-        cell.isExploded = true;
         cells[cell.position.x, cell.position.y] = cell;
 
         for (int i = 0; i < width; i++)
@@ -250,9 +284,10 @@ public class Game : MonoBehaviour
     {
         if (isGameVictory)
         {
-
             Time.timeScale = 0;
             Debug.Log(isGameVictory);
+            gameVictory.SetActive(true);
+            retryButton.SetActive(true);
         }
     }
 
@@ -273,12 +308,10 @@ public class Game : MonoBehaviour
 
         if (numberCaseRevealed == height * width - nbMine)
         {
-            Debug.Log(numberCaseRevealed);
             return true;
         }
         else
         {
-            Debug.Log(numberCaseRevealed);
             return false;
         }
 
