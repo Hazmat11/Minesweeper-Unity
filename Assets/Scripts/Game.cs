@@ -2,6 +2,8 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using TMPro;
 using UnityEngine;
+using System.IO;
+using System.Globalization;
 
 public class Game : MonoBehaviour
 {
@@ -285,9 +287,23 @@ public class Game : MonoBehaviour
         if (isGameVictory)
         {
             Time.timeScale = 0;
-            Debug.Log(isGameVictory);
             gameVictory.SetActive(true);
             retryButton.SetActive(true);
+
+            StreamReader sr = new StreamReader("Assets/Sprites/score.txt");
+            string text = sr.ReadToEnd();
+            sr.Close();
+
+            Debug.Log(text);
+
+            int floatValue = int.Parse(text, CultureInfo.InvariantCulture.NumberFormat);
+
+            if (floatValue > GameObject.Find("Timer").GetComponent<Timer>().Timefixed)
+            {
+                StreamWriter sw = new StreamWriter("Assets/Sprites/score.txt");
+                sw.WriteLine(GameObject.Find("Timer").GetComponent<Timer>().Timefixed);
+                sw.Close();
+            }
         }
     }
 
