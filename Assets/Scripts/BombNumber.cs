@@ -8,10 +8,12 @@ public class BombNumber : MonoBehaviour
     public TMP_Text bombnbText;
 
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {
         BombCount();
     }
+
+
 
     void BombCount()
     {

@@ -170,6 +170,14 @@ public class Game : MonoBehaviour
         Cell cell = GetCell(Cellpos.x, Cellpos.y);
 
         cell.isFlagged = !cell.isFlagged;
+        if (cell.isFlagged)
+        {
+            GameObject.Find("GameManager").GetComponent<DifficultyLevel>().nbMine--;
+        }
+        else if(!cell.isFlagged)
+        {
+            GameObject.Find("GameManager").GetComponent<DifficultyLevel>().nbMine++;
+        }
         cells[Cellpos.x, Cellpos.y] = cell;
         gameBoard.DrawBoard(cells);
     }
@@ -300,15 +308,13 @@ public class Game : MonoBehaviour
             string text = sr.ReadLine();
             sr.Close();
 
-            Debug.Log(text);
-
             int floatValue = int.Parse(text, CultureInfo.InvariantCulture.NumberFormat);
 
             if (floatValue > GameObject.Find("Timer").GetComponent<Timer>().Timefixed)
             {
                 PlaceHolder.SetActive(true);
                 StreamWriter sw = new StreamWriter("Assets/Sprites/score.txt");
-                sw.WriteLine(GameObject.Find("Timer").GetComponent<Timer>().Timefixed);
+                sw.Write(GameObject.Find("Timer").GetComponent<Timer>().Timefixed);
                 sw.Close();
             }
         }
