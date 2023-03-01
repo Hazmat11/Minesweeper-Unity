@@ -24,6 +24,11 @@ public class Game : MonoBehaviour
     public GameObject explosion;
     public GameObject confetti;
 
+    public AudioSource clickSound;
+    public AudioSource flagSound;
+    public AudioSource victorySound;
+    public AudioSource mineSound;
+
     private void Awake()
     {
         gameBoard = GetComponentInChildren<GameBoard>();
@@ -76,18 +81,16 @@ public class Game : MonoBehaviour
     {
         if (!isGameOver)
         {
-
+            isGameVictory = CheckVictory();
+            PrintWinningGameScene(isGameVictory);
             if (Input.GetMouseButtonDown(0))
             {
                 Reveal();
-
             }
             else if (Input.GetMouseButtonDown(1))
             {
                 Flaged();
             }
-            isGameVictory = CheckVictory();
-            PrintWinningGameScene(isGameVictory);
         }
     }
 
@@ -97,6 +100,8 @@ public class Game : MonoBehaviour
         Vector3Int Cellpos = gameBoard.tilemap.WorldToCell(worldPosition);
         Cell cell = GetCell(Cellpos.x, Cellpos.y);
         if (cell.cellType == Cell.CellType.Invalid || cell.isFlagged) return;
+
+        clickSound.Play();
 
         if (cell.isRevealed && cell.cellType == Cell.CellType.Number)
         {
@@ -125,7 +130,7 @@ public class Game : MonoBehaviour
         if (cell.cellType == Cell.CellType.Mine)
         {
             cell.isExploded = true;
-            
+
             EndingGame(cell);
         }
 
@@ -167,6 +172,12 @@ public class Game : MonoBehaviour
         Vector3Int Cellpos = gameBoard.tilemap.WorldToCell(worldPosition);
 
         Cell cell = GetCell(Cellpos.x, Cellpos.y);
+
+        if (!isInGrid(Cellpos.x, Cellpos.y)) return;
+        if (!cell.isRevealed)
+        {
+            flagSound.Play();
+        }
 
         cell.isFlagged = !cell.isFlagged;
         cells[Cellpos.x, Cellpos.y] = cell;
@@ -268,6 +279,7 @@ public class Game : MonoBehaviour
         retryButton.SetActive(true);
 
         cell.isRevealed = true;
+        mineSound.Play();
         cells[cell.position.x, cell.position.y] = cell;
 
         for (int i = 0; i < width; i++)
@@ -290,9 +302,12 @@ public class Game : MonoBehaviour
     {
         if (isGameVictory)
         {
+            isGameOver = true;
             Time.timeScale = 0;
             gameVictory.SetActive(true);
             confetti.SetActive(true);
+            victorySound.Play();
+
             retryButton.SetActive(true);
 
             StreamReader sr = new StreamReader("Assets/Sprites/score.txt");
