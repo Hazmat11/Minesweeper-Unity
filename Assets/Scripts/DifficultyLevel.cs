@@ -16,7 +16,7 @@ public class DifficultyLevel : MonoBehaviour
     {    
         level.GetComponent<DifficultyLevel>().width = 9;
         level.GetComponent<DifficultyLevel>().height = 9;
-        level.GetComponent<DifficultyLevel>().nbMine = 1;
+        level.GetComponent<DifficultyLevel>().nbMine = 10;
     }
     public void Medium()
     {
