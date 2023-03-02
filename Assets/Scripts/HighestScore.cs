@@ -22,7 +22,7 @@ public class HighestScore : MonoBehaviour
 
     void showBestScore()
     {
-        StreamReader sr = new StreamReader("Assets/Sprites/score.txt");
+        StreamReader sr = new StreamReader(Application.persistentDataPath + "score.txt");
         string text = sr.ReadToEnd();
 
         int floatValue = int.Parse(text, CultureInfo.InvariantCulture.NumberFormat);

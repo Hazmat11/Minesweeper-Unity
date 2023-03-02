@@ -38,6 +38,16 @@ public class Game : MonoBehaviour
 
     void Start()
     {
+        if (!File.Exists(Application.persistentDataPath + "score.txt"))
+        {
+            System.IO.File.WriteAllText(Application.persistentDataPath + "score.txt", "90");
+
+        }
+        if (!File.Exists(Application.persistentDataPath + "name.txt"))
+        {
+            System.IO.File.WriteAllText(Application.persistentDataPath + "name.txt", "");
+
+        }
         NewGame();
         Camera.main.transform.position = new Vector3(width / 2f, height / 2f, -10f);
 
@@ -316,7 +326,7 @@ public class Game : MonoBehaviour
 
             retryButton.SetActive(true);
 
-            StreamReader sr = new StreamReader("Assets/Sprites/score.txt");
+            StreamReader sr = new StreamReader(Application.persistentDataPath + "score.txt");
             string text = sr.ReadLine();
             sr.Close();
 
@@ -325,7 +335,7 @@ public class Game : MonoBehaviour
             if (floatValue > GameObject.Find("Timer").GetComponent<Timer>().Timefixed)
             {
                 PlaceHolder.SetActive(true);
-                StreamWriter sw = new StreamWriter("Assets/Sprites/score.txt");
+                StreamWriter sw = new StreamWriter(Application.persistentDataPath + "score.txt");
                 sw.Write(GameObject.Find("Timer").GetComponent<Timer>().Timefixed);
                 sw.Close();
             }

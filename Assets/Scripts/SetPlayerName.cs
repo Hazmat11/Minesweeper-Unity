@@ -20,9 +20,6 @@ public class SetPlayerName : MonoBehaviour
     {
         InputField inputField = this.GetComponent<InputField>();
         string name = inputField.text;
-        Debug.Log(name);
-        StreamWriter sw = new StreamWriter("Assets/Sprites/name.txt");
-        sw.Write(name);
-        sw.Close();
+        System.IO.File.WriteAllText(Application.persistentDataPath+"name.txt", name);
     }
 }

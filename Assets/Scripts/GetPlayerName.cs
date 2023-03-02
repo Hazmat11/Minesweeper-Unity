@@ -16,7 +16,7 @@ public class GetPlayerName : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StreamReader sr = new StreamReader("Assets/Sprites/name.txt");
+        StreamReader sr = new StreamReader(Application.persistentDataPath+ "name.txt");
         playerName.text = sr.ReadToEnd();
         sr.Close();
     }
